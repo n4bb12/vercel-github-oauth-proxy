@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json.schemastore.org/package",
+  "name": "vercel-github-oauth-proxy",
+  "version": "1.0.0",
+  "description": "Protect a static website hosted on Vercel behind GitHub authentication.",
+  "keywords": [
+    "vercel",
+    "github",
+    "oauth",
+    "proxy",
+    "static",
+    "website",
+    "lambda",
+    "functions"
+  ],
+  "license": "ISC",
+  "author": "Abraham Schilling <AbrahamSchilling@gmail.com>",
+  "main": "dist/index.js",
+  "types": "dist/types.d.ts",
+  "scripts": {
+    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,yml,yaml,md}\"",
+    "prepack": "tsc --project tsconfig.build.json"
+  },
+  "dependencies": {
+    "axios": "^0.21.1",
+    "fastify": "^3.9.2",
+    "fastify-cookie": "^5.0.2",
+    "fastify-static": "^3.3.0",
+    "nanoid": "^3.1.20",
+    "ow": "^0.21.0"
+  },
+  "devDependencies": {
+    "@types/node": "^14.14.14",
+    "@vercel/node": "^1.8.5",
+    "prettier": "^2.2.1",
+    "vercel": "^21.0.1"
+  }
+}

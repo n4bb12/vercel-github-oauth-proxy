@@ -94,3 +94,7 @@ export interface GitHubUser {
   two_factor_authentication: boolean
   plan: GitHubPlan
 }
+
+export interface StaticFallbacks {
+  [url: string]: string
+}

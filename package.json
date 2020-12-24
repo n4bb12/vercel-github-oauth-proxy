@@ -29,6 +29,7 @@
     "fastify": "^3.9.2",
     "fastify-cookie": "^5.0.2",
     "fastify-static": "^3.3.0",
+    "globby": "^11.0.1",
     "nanoid": "^3.1.20",
     "ow": "^0.21.0"
   },

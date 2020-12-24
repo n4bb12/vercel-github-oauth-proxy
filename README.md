@@ -64,7 +64,9 @@ Adapt `includeFiles` to your public output folder. Including these files is requ
 
 ### Step 4 — Build
 
-To build your website during lambda deploylent, add a `vercel-build` step that builds your website.
+If you have an existing `build` script, rename it to `vercel-build` to build your website as part of the lambda build instead of the normal build.
+
+Make sure to not keep the `build` script as it would result in duplicate work or may break deployment entirely. For more information see [custom-build-step-for-node-js](https://vercel.com/docs/runtimes#advanced-usage/advanced-node-js-usage/custom-build-step-for-node-js).
 
 ```json
 {

@@ -1,7 +1,7 @@
 {
   "$schema": "https://json.schemastore.org/package",
   "name": "vercel-github-oauth-proxy",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Protect a static website hosted on Vercel behind GitHub authentication.",
   "keywords": [
     "vercel",

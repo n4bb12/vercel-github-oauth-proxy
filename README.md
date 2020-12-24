@@ -13,9 +13,9 @@ yarn add vercel-github-oauth-proxy
 ### Step 2 — Create an API endpoint at `/api/index.ts`
 
 ```ts
-import { createLambdaHandler } from "vercel-github-oauth-proxy"
+import { createLambdaProxyAuthHandler } from "vercel-github-oauth-proxy"
 
-export default createLambdaHandler(config)
+export default createLambdaProxyAuthHandler(config)
 ```
 
 `config.cryptoSecret`

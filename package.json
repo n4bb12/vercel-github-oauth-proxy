@@ -16,7 +16,7 @@
   "license": "ISC",
   "author": "Abraham Schilling <AbrahamSchilling@gmail.com>",
   "main": "dist/index.js",
-  "types": "dist/types.d.ts",
+  "types": "dist/index.d.ts",
   "scripts": {
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,yml,yaml,md}\"",
     "prepack": "tsc --project tsconfig.build.json"

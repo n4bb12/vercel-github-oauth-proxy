@@ -52,7 +52,7 @@ Therefore we're using a separate org admin token to verify membership during log
   "routes": [{ "src": "/(.*)", "dest": "/api/index.ts" }],
   "functions": {
     "api/index.ts": {
-      "includeFiles": "**"
+      "includeFiles": "static/**"
     }
   }
 }
@@ -60,7 +60,7 @@ Therefore we're using a separate org admin token to verify membership during log
 
 This routes all traffic through the lambda endpoint.
 
-Note that we also include all repo files in the lambda build. This is required because the static website needs to be deployed as part of the lambda function, not the default build. See also the [function docs](https://vercel.com/docs/configuration?query=includeFiles#project/functions) and [limits](https://vercel.com/docs/platform/limits?query=includeFiles#serverless-function-size).
+Adapt `includeFiles` to your public output folder. Including these files is required because the static website needs to be deployed as part of the lambda function, not the default build. See also the [function docs](https://vercel.com/docs/configuration?query=includeFiles#project/functions) and [limits](https://vercel.com/docs/platform/limits?query=includeFiles#serverless-function-size).
 
 ### Step 4 — Build
 

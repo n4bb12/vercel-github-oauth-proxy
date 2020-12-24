@@ -13,6 +13,5 @@ export function registerServeStatic(server: FastifyInstance, config: Config) {
   })
   server.register(fastifyStatic, {
     root: path.resolve(config.staticDir),
-    serve: false,
   })
 }

@@ -1,6 +1,7 @@
 import { NowApiHandler } from "@vercel/node"
 import fastify from "fastify"
 import assert from "ow"
+
 import { registerCookieMiddleware } from "./fastify-cookie"
 import { createLambdaHandler } from "./fastify-lambda"
 import { registerServeStatic } from "./fastify-static"

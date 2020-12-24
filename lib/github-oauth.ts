@@ -3,7 +3,7 @@ import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify"
 import { nanoid } from "nanoid"
 import { URLSearchParams } from "url"
 
-import { GitHubAccessToken, GitHubOrgMembership, GitHubUser, RoutePrams, Config, OAuthState } from "./types"
+import { Config, GitHubAccessToken, GitHubOrgMembership, GitHubUser, OAuthState, RoutePrams } from "./types"
 
 export function registerGitHubOAuth(server: FastifyInstance, config: Config) {
   const secureCookies = !!process.env.VERCEL_URL

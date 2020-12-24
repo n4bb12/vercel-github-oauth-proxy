@@ -10,6 +10,8 @@ export function registerGitHubOAuth(server: FastifyInstance, config: Config) {
 
   const urls = {
     localAuthorize: "/login/oauth/authorize",
+    localMembershipError: "/login/oauth/error-membership",
+    localGenericError: "/login/oauth/error",
     githubAuthorize: "https://github.com/login/oauth/authorize",
     githubToken: "https://github.com/login/oauth/access_token",
     githubOrgMembers: `https://api.github.com/orgs/${config.githubOrgName}/members`,
@@ -144,16 +146,24 @@ export function registerGitHubOAuth(server: FastifyInstance, config: Config) {
   //
   server.addHook<RoutePrams>("preValidation", async (req, res) => {
     try {
-      if (req.cookies[cookieNames.state] && req.cookies[cookieNames.user]) {
-        if (req.query.state) {
-          const state = retrieveState(req, res)
-          return res.redirect(302, state.path)
-        }
-        return
+      if (req.url === urls.localMembershipError) {
+        return denyAccess(res, "It appears you are not a member of the required GitHub organization.")
+      }
+
+      if (req.url === urls.localGenericError) {
+        return denyAccess(res, "It appears that the authentication request was initiated or processed incorrectly.")
       }
 
       if (req.url === urls.localAuthorize) {
         return redirectToGitHub(req, res)
+      }
+
+      if (req.cookies[cookieNames.state] && req.cookies[cookieNames.user]) {
+        if (req.query.state || req.query.code) {
+          const state = retrieveState(req, res)
+          return res.redirect(302, state.path)
+        }
+        return
       }
 
       const code = req.query.code
@@ -168,13 +178,13 @@ export function registerGitHubOAuth(server: FastifyInstance, config: Config) {
       const members = await getGitHubOrgMemberships()
 
       if (!members.find(member => member.id === user.id)) {
-        return denyAccess(res, "It appears you are not a member of the required GitHub organization.")
+        return res.redirect(302, urls.localMembershipError)
       }
 
       return succeed(res, user, state.path)
     } catch (error) {
       console.error(error)
-      return denyAccess(res, "It appears that the authentication request was initiated or processed incorrectly.")
+      return res.redirect(302, urls.localGenericError)
     }
   })
 }

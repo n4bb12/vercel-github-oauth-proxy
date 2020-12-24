@@ -143,21 +143,25 @@ export function registerGitHubOAuth(server: FastifyInstance, config: Config) {
   // https://www.fastify.io/docs/latest/Hooks/
   //
   server.addHook<RoutePrams>("preValidation", async (req, res) => {
-    if (req.cookies[cookieNames.state] && req.cookies[cookieNames.user]) {
-      return
-    }
-
-    if (req.url === urls.localAuthorize) {
-      return redirectToGitHub(req, res)
-    }
-
-    const code = req.query.code
-
-    if (!code) {
-      return initiateOAuth(req, res)
-    }
-
     try {
+      if (req.cookies[cookieNames.state] && req.cookies[cookieNames.user]) {
+        if (req.query.state) {
+          const state = retrieveState(req, res)
+          return res.redirect(302, state.path)
+        }
+        return
+      }
+
+      if (req.url === urls.localAuthorize) {
+        return redirectToGitHub(req, res)
+      }
+
+      const code = req.query.code
+
+      if (!code) {
+        return initiateOAuth(req, res)
+      }
+
       const state = retrieveState(req, res)
       const tokenData = await getGitHubAccessToken(code)
       const user = await getGitHubUser(tokenData)

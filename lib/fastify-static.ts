@@ -8,10 +8,11 @@ import { Config } from "./types"
 // https://github.com/fastify/fastify-static#fastify-static
 //
 export function registerServeStatic(server: FastifyInstance, config: Config) {
-  server.setNotFoundHandler((req, res) => {
+  server.setNotFoundHandler(async (req, res) => {
     res.sendFile("index.html", config.staticDir)
   })
   server.register(fastifyStatic, {
     root: path.resolve(config.staticDir),
+    extensions: ["html", "htm"],
   })
 }

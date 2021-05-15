@@ -8,16 +8,15 @@
 
 <p align="center">
   <a href="https://www.npmjs.com/package/vercel-github-oauth-proxy">
-    <img alt="Version" src="https://flat.badgen.net/npm/v/vercel-github-oauth-proxy?icon=npm">
+    <img alt="Version" src="https://img.shields.io/npm/v/vercel-github-oauth-proxy?style=flat-square&logo=npm">
   </a>
+
   <a href="https://raw.githubusercontent.com/n4bb12/vercel-github-oauth-proxy/master/LICENSE">
-    <img alt="License" src="https://flat.badgen.net/github/license/n4bb12/vercel-github-oauth-proxy?icon=github">
+    <img alt="License" src="https://img.shields.io/badge/license-ISC-blue?style=flat-square&logo=github">
   </a>
+  
   <a href="https://github.com/n4bb12/vercel-github-oauth-proxy/issues/new/choose">
-    <img alt="Issues" src="https://flat.badgen.net/badge/github/create issue/pink?icon=github">
-  </a>
-  <a href="https://david-dm.org/n4bb12/vercel-github-oauth-proxy">
-    <img alt="Dependencies" src="https://flat.badgen.net/david/dep/n4bb12/vercel-github-oauth-proxy?icon=npm">
+    <img alt="Issues" src="https://img.shields.io/badge/github-create%20issue-brightgreen?style=flat-square&logo=github">
   </a>
 </p>
 

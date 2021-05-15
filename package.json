@@ -13,6 +13,7 @@
     "lambda",
     "functions"
   ],
+  "repository": "github:n4bb12/vercel-github-oauth-proxy",
   "license": "ISC",
   "author": "Abraham Schilling <AbrahamSchilling@gmail.com>",
   "main": "dist/index.js",

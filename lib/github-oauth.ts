@@ -3,7 +3,14 @@ import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify"
 import { nanoid } from "nanoid"
 import { URLSearchParams } from "url"
 
-import { Config, GitHubAccessToken, GitHubOrgMembership, GitHubUser, OAuthState, RoutePrams } from "./types"
+import {
+  Config,
+  GitHubAccessToken,
+  GitHubOrgMembership,
+  GitHubUser,
+  OAuthState,
+  RoutePrams,
+} from "./types"
 
 export function registerGitHubOAuth(server: FastifyInstance, config: Config) {
   const secureCookies = !!process.env.VERCEL_URL
@@ -59,7 +66,10 @@ export function registerGitHubOAuth(server: FastifyInstance, config: Config) {
   //
   // https://docs.github.com/en/free-pro-team@latest/developers/apps/authorizing-oauth-apps#web-application-flow
   //
-  const redirectToGitHub = async (req: FastifyRequest<RoutePrams>, res: FastifyReply) => {
+  const redirectToGitHub = async (
+    req: FastifyRequest<RoutePrams>,
+    res: FastifyReply,
+  ) => {
     const query = formatQueryParams({
       client_id: config.githubClientId,
       scope: "read:user",
@@ -78,7 +88,9 @@ export function registerGitHubOAuth(server: FastifyInstance, config: Config) {
     })
   }
 
-  const getGitHubAccessToken = async (code: string): Promise<GitHubAccessToken> => {
+  const getGitHubAccessToken = async (
+    code: string,
+  ): Promise<GitHubAccessToken> => {
     const url = urls.githubToken
     const headers = {
       Accept: "application/json",
@@ -94,7 +106,9 @@ export function registerGitHubOAuth(server: FastifyInstance, config: Config) {
     return data
   }
 
-  const getGitHubUser = async (tokenData: GitHubAccessToken): Promise<GitHubUser> => {
+  const getGitHubUser = async (
+    tokenData: GitHubAccessToken,
+  ): Promise<GitHubUser> => {
     const url = urls.githubUserDetails
     const headers = {
       Accept: "application/json",
@@ -118,11 +132,20 @@ export function registerGitHubOAuth(server: FastifyInstance, config: Config) {
     return data
   }
 
-  const retrieveState = (req: FastifyRequest<RoutePrams>, res: FastifyReply) => {
+  const retrieveState = (
+    req: FastifyRequest<RoutePrams>,
+    res: FastifyReply,
+  ) => {
     const state: OAuthState = unsignCookie(res, req.query.state || "")
-    const expectedState: OAuthState = unsignCookie(res, req.cookies[cookieNames.state] || "")
+    const expectedState: OAuthState = unsignCookie(
+      res,
+      req.cookies[cookieNames.state] || "",
+    )
 
-    if (!state?.randomToken || state.randomToken !== expectedState?.randomToken) {
+    if (
+      !state?.randomToken ||
+      state.randomToken !== expectedState?.randomToken
+    ) {
       throw new Error("State mismatch")
     }
 
@@ -147,11 +170,17 @@ export function registerGitHubOAuth(server: FastifyInstance, config: Config) {
   server.addHook<RoutePrams>("preValidation", async (req, res) => {
     try {
       if (req.url === urls.localMembershipError) {
-        return denyAccess(res, "It appears you are not a member of the required GitHub organization.")
+        return denyAccess(
+          res,
+          "It appears you are not a member of the required GitHub organization.",
+        )
       }
 
       if (req.url === urls.localGenericError) {
-        return denyAccess(res, "It appears that the authentication request was initiated or processed incorrectly.")
+        return denyAccess(
+          res,
+          "It appears that the authentication request was initiated or processed incorrectly.",
+        )
       }
 
       if (req.url === urls.localAuthorize) {
@@ -177,7 +206,7 @@ export function registerGitHubOAuth(server: FastifyInstance, config: Config) {
       const user = await getGitHubUser(tokenData)
       const members = await getGitHubOrgMemberships()
 
-      if (!members.find(member => member.id === user.id)) {
+      if (!members.find((member) => member.id === user.id)) {
         return res.redirect(302, urls.localMembershipError)
       }
 

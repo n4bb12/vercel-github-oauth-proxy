@@ -8,11 +8,21 @@ import { registerServeStatic } from "./fastify-static"
 import { registerGitHubOAuth } from "./github-oauth"
 import { Config } from "./types"
 
-export const createLambdaProxyAuthHandler: (config: Config) => NowApiHandler = config => {
+export const createLambdaProxyAuthHandler: (config: Config) => NowApiHandler = (
+  config,
+) => {
   assert(config.cryptoSecret, "config.cryptoSecret", assert.string.nonEmpty)
   assert(config.githubClientId, "config.githubClientId", assert.string.nonEmpty)
-  assert(config.githubClientSecret, "config.githubClientSecret", assert.string.nonEmpty)
-  assert(config.githubOrgAdminToken, "config.githubOrgAdminToken", assert.string.nonEmpty)
+  assert(
+    config.githubClientSecret,
+    "config.githubClientSecret",
+    assert.string.nonEmpty,
+  )
+  assert(
+    config.githubOrgAdminToken,
+    "config.githubOrgAdminToken",
+    assert.string.nonEmpty,
+  )
   assert(config.githubOrgName, "config.githubOrgName", assert.string.nonEmpty)
 
   const server = fastify({ logger: true })

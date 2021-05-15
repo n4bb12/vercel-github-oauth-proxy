@@ -28,16 +28,16 @@
     "axios": "^0.21.1",
     "fastify": "^3.9.2",
     "fastify-cookie": "^5.0.2",
-    "fastify-static": "^3.3.0",
+    "fastify-static": "^4.0.1",
     "globby": "^11.0.1",
     "nanoid": "^3.1.20",
-    "ow": "^0.21.0"
+    "ow": "^0.23.0"
   },
   "devDependencies": {
-    "@types/node": "^14.14.14",
+    "@types/node": "^15.3.0",
     "@vercel/node": "^1.8.5",
     "prettier": "^2.2.1",
     "release-it": "^14.2.2",
-    "vercel": "^21.0.1"
+    "vercel": "^22.0.1"
   }
 }

@@ -120,14 +120,19 @@ export function registerGitHubOAuth(server: FastifyInstance, config: Config) {
     return data
   }
 
-  const getGitHubOrgMemberships = async (): Promise<GitHubOrgMembership[]> => {
+  const getGitHubOrgMemberships = async (page = 1): Promise<GitHubOrgMembership[]> => {
     const url = urls.githubOrgMembers
     const headers = {
       Accept: "application/json",
       Authorization: `Bearer ${config.githubOrgAdminToken}`,
     }
 
-    const { data } = await axios.get<GitHubOrgMembership[]>(url, { headers })
+    const params = {
+      per_page: 100,
+      page,
+    }
+
+    const { data } = await axios.get<GitHubOrgMembership[]>(url, { headers, params })
 
     return data
   }
@@ -204,13 +209,18 @@ export function registerGitHubOAuth(server: FastifyInstance, config: Config) {
       const state = retrieveState(req, res)
       const tokenData = await getGitHubAccessToken(code)
       const user = await getGitHubUser(tokenData)
-      const members = await getGitHubOrgMemberships()
 
-      console.log("User: ", user.login)
-      console.log(
-        "Members: ",
-        members.map((member) => member.login),
-      )
+      console.log("Login attempt:", user.login)
+
+      let members: GitHubOrgMembership[] = []
+      let page = 1
+      let isUserMember= false
+
+      do {
+        members = await getGitHubOrgMemberships(page)
+        page++
+        isUserMember = members.some((member) => member.login === user.login)
+      } while (!isUserMember && members.length)
 
       if (!members.find((member) => member.login === user.login)) {
         return res.redirect(302, urls.localMembershipError)

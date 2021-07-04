@@ -206,6 +206,12 @@ export function registerGitHubOAuth(server: FastifyInstance, config: Config) {
       const user = await getGitHubUser(tokenData)
       const members = await getGitHubOrgMemberships()
 
+      console.log("User: ", user.id)
+      console.log(
+        "Members: ",
+        members.map((member) => member.id),
+      )
+
       if (!members.find((member) => member.id === user.id)) {
         return res.redirect(302, urls.localMembershipError)
       }

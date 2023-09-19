@@ -1,4 +1,4 @@
-import axios from "axios"
+import axios, { AxiosError } from "axios"
 import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify"
 import { nanoid } from "nanoid"
 import { URLSearchParams } from "url"
@@ -233,7 +233,11 @@ export function registerGitHubOAuth(server: FastifyInstance, config: Config) {
 
       return succeed(res, user, state.path)
     } catch (error) {
-      console.error(error)
+      if (error instanceof AxiosError) {
+        console.error(error.toJSON())
+      } else if (error instanceof Error) {
+        console.error(error.stack)
+      }
       return res.redirect(302, urls.localGenericError)
     }
   })

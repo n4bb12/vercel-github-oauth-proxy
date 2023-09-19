@@ -8,9 +8,9 @@ import { registerServeStatic } from "./fastify-static"
 import { registerGitHubOAuth } from "./github-oauth"
 import { Config } from "./types"
 
-export const createLambdaProxyAuthHandler: (config: Config) => VercelApiHandler = (
-  config,
-) => {
+export const createLambdaProxyAuthHandler: (
+  config: Config,
+) => VercelApiHandler = (config) => {
   assert(config.cryptoSecret, "config.cryptoSecret", assert.string.nonEmpty)
   assert(config.githubClientId, "config.githubClientId", assert.string.nonEmpty)
   assert(

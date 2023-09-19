@@ -22,7 +22,7 @@
     "dist"
   ],
   "scripts": {
-    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,yml,yaml,md}\"",
+    "format": "prettier --write .",
     "prepack": "tsc --project tsconfig.build.json",
     "typecheck": "tsc --noEmit"
   },

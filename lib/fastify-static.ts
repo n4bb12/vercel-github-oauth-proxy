@@ -1,5 +1,5 @@
 import { FastifyInstance } from "fastify"
-import fastifyStatic from "fastify-static"
+import fastifyStatic from "@fastify/static"
 import globby from "globby"
 import path from "path"
 

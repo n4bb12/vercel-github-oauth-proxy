@@ -1,5 +1,5 @@
 import { FastifyInstance } from "fastify"
-import fastifyCookie from "fastify-cookie"
+import fastifyCookie from "@fastify/cookie"
 
 import { Config } from "./types"
 

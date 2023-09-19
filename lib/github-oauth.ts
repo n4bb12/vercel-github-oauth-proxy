@@ -30,7 +30,7 @@ export function registerGitHubOAuth(server: FastifyInstance, config: Config) {
     user: "user",
   } as const
 
-  const formatQueryParams = (params: NodeJS.Dict<string>) => {
+  const formatQueryParams = (params: Record<string, any>) => {
     return "?" + new URLSearchParams(params).toString()
   }
 
@@ -120,7 +120,9 @@ export function registerGitHubOAuth(server: FastifyInstance, config: Config) {
     return data
   }
 
-  const getGitHubOrgMemberships = async (page = 1): Promise<GitHubOrgMembership[]> => {
+  const getGitHubOrgMemberships = async (
+    page = 1,
+  ): Promise<GitHubOrgMembership[]> => {
     const url = urls.githubOrgMembers
     const headers = {
       Accept: "application/json",
@@ -132,7 +134,10 @@ export function registerGitHubOAuth(server: FastifyInstance, config: Config) {
       page,
     }
 
-    const { data } = await axios.get<GitHubOrgMembership[]>(url, { headers, params })
+    const { data } = await axios.get<GitHubOrgMembership[]>(url, {
+      headers,
+      params,
+    })
 
     return data
   }
@@ -214,7 +219,7 @@ export function registerGitHubOAuth(server: FastifyInstance, config: Config) {
 
       let members: GitHubOrgMembership[] = []
       let page = 1
-      let isUserMember= false
+      let isUserMember = false
 
       do {
         members = await getGitHubOrgMemberships(page)

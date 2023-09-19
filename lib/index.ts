@@ -1,4 +1,4 @@
-import { NowApiHandler } from "@vercel/node"
+import { VercelApiHandler } from "@vercel/node"
 import fastify from "fastify"
 import assert from "ow"
 
@@ -8,7 +8,7 @@ import { registerServeStatic } from "./fastify-static"
 import { registerGitHubOAuth } from "./github-oauth"
 import { Config } from "./types"
 
-export const createLambdaProxyAuthHandler: (config: Config) => NowApiHandler = (
+export const createLambdaProxyAuthHandler: (config: Config) => VercelApiHandler = (
   config,
 ) => {
   assert(config.cryptoSecret, "config.cryptoSecret", assert.string.nonEmpty)

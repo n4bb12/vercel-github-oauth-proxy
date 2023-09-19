@@ -4,7 +4,7 @@ import fastifyCookie from "@fastify/cookie"
 import { Config } from "./types"
 
 //
-// https://github.com/fastify/fastify-cookie#fastify-cookie
+// https://github.com/fastify/fastify-cookie
 //
 export function registerCookieMiddleware(
   server: FastifyInstance,

@@ -78,13 +78,13 @@ Therefore we're using a separate org admin token to verify membership during log
 
 This routes all traffic through the lambda endpoint.
 
-Adapt `includeFiles` to your public output folder. Including these files is required because the static website needs to be deployed as part of the lambda function, not the default build. See also the [function docs](https://vercel.com/docs/configuration?query=includeFiles#project/functions) and [limits](https://vercel.com/docs/platform/limits?query=includeFiles#serverless-function-size).
+Adapt `includeFiles` to your public output folder. Including these files is required because the static website needs to be deployed as part of the lambda function, not the default build. See also the [function docs](https://vercel.com/docs/projects/project-configuration#functions) and [size limit docs](https://vercel.com/docs/functions/serverless-functions/runtimes#size-limits).
 
 ### Step 4 — Build
 
 If you have an existing `build` script, rename it to `vercel-build` to build your website as part of the lambda build instead of the normal build.
 
-Make sure to not keep the `build` script as it would result in duplicate work or may break deployment entirely. For more information see [custom-build-step-for-node-js](https://vercel.com/docs/runtimes#advanced-usage/advanced-node-js-usage/custom-build-step-for-node-js).
+Make sure to not keep the `build` script as it would result in duplicate work or may break deployment entirely. For more information see [custom-build-step-for-node-js](https://vercel.com/docs/functions/serverless-functions/runtimes/node-js#custom-build-step-for-node.js).
 
 ```json
 {

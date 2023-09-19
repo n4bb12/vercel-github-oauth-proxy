@@ -5,7 +5,7 @@ import path from "path"
 import { Config } from "./types"
 
 //
-// https://github.com/fastify/fastify-static#fastify-static
+// https://github.com/fastify/fastify-static
 //
 export function registerServeStatic(server: FastifyInstance, config: Config) {
   server.register(fastifyStatic, {

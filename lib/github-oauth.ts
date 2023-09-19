@@ -64,7 +64,7 @@ export function registerGitHubOAuth(server: FastifyInstance, config: Config) {
   }
 
   //
-  // https://docs.github.com/en/free-pro-team@latest/developers/apps/authorizing-oauth-apps#web-application-flow
+  // https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/authorizing-oauth-apps#web-application-flow
   //
   const redirectToGitHub = async (
     req: FastifyRequest<RoutePrams>,
@@ -175,7 +175,7 @@ export function registerGitHubOAuth(server: FastifyInstance, config: Config) {
   }
 
   //
-  // https://www.fastify.io/docs/latest/Hooks/
+  // https://fastify.dev/docs/latest/Reference/Hooks
   //
   server.addHook<RoutePrams>("preValidation", async (req, res) => {
     try {

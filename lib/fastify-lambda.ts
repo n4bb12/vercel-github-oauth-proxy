@@ -2,8 +2,8 @@ import { VercelApiHandler, VercelRequest, VercelResponse } from "@vercel/node"
 import { FastifyInstance } from "fastify"
 
 //
-// https://www.fastify.io/docs/latest/Serverless/#vercel
-// https://vercel.com/docs/serverless-functions/supported-languages#using-typescript
+// https://fastify.dev/docs/latest/Guides/Serverless#vercel
+// https://vercel.com/docs/functions/serverless-functions/runtimes/node-js#using-typescript-with-the-node.js-runtime
 //
 export const createLambdaHandler: (
   server: FastifyInstance,

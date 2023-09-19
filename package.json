@@ -23,7 +23,7 @@
   ],
   "scripts": {
     "format": "prettier --write .",
-    "prepack": "tsc --project tsconfig.build.json",
+    "prepack": "tsc",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {

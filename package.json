@@ -41,5 +41,9 @@
     "prettier": "^3.0.3",
     "release-it": "^16.1.5",
     "vercel": "^32.2.5"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
   }
 }

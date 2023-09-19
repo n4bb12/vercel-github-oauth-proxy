@@ -12,6 +12,7 @@ specifiers:
   ow: ^0.26.0
   prettier: ^3.0.3
   release-it: ^16.1.5
+  typescript: ^5.2.2
   vercel: ^32.2.5
 
 dependencies:
@@ -28,6 +29,7 @@ devDependencies:
   '@vercel/node': 3.0.5
   prettier: 3.0.3
   release-it: 16.1.5
+  typescript: 5.2.2
   vercel: 32.2.5
 
 packages:
@@ -3981,6 +3983,12 @@ packages:
   /typescript/4.9.5:
     resolution: {integrity: sha512-1FXk9E2Hm+QzZQ7z+McJiHL4NW1F2EzMu9Nq9i3zAaGqibafqYwCVU6WyWAuyQRRzOlxou8xZSyXLEN8oKj24g==}
     engines: {node: '>=4.2.0'}
+    hasBin: true
+    dev: true
+
+  /typescript/5.2.2:
+    resolution: {integrity: sha512-mI4WrpHsbCIcwT9cF4FZvr80QUeKvsUsUvKDoR+X/7XHQH98xYD8YHZg7ANtz2GtZt/CBq2QJ0thkGJMHfqc1w==}
+    engines: {node: '>=14.17'}
     hasBin: true
     dev: true
 

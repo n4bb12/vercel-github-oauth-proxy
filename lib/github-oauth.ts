@@ -156,7 +156,9 @@ export function registerGitHubOAuth(server: FastifyInstance, config: Config) {
       !state?.randomToken ||
       state.randomToken !== expectedState?.randomToken
     ) {
-      throw new Error("State mismatch")
+      throw new Error(
+        `State mismatch: ${state?.randomToken} !== ${expectedState?.randomToken}`,
+      )
     }
 
     return state

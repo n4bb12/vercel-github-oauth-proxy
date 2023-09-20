@@ -1,7 +1,7 @@
 import { VercelApiHandler } from "@vercel/node"
 import fastify from "fastify"
-import assert from "ow"
 
+import { validateConfig } from "./config"
 import { registerCookieMiddleware } from "./fastify-cookie"
 import { createLambdaHandler } from "./fastify-lambda"
 import { registerServeStatic } from "./fastify-static"
@@ -11,19 +11,7 @@ import { Config } from "./types"
 export const createLambdaProxyAuthHandler: (
   config: Config,
 ) => VercelApiHandler = (config) => {
-  assert(config.cryptoSecret, "config.cryptoSecret", assert.string.nonEmpty)
-  assert(config.githubClientId, "config.githubClientId", assert.string.nonEmpty)
-  assert(
-    config.githubClientSecret,
-    "config.githubClientSecret",
-    assert.string.nonEmpty,
-  )
-  assert(
-    config.githubOrgAdminToken,
-    "config.githubOrgAdminToken",
-    assert.string.nonEmpty,
-  )
-  assert(config.githubOrgName, "config.githubOrgName", assert.string.nonEmpty)
+  validateConfig(config)
 
   const server = fastify({ logger: true })
 

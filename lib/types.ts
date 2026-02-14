@@ -13,7 +13,7 @@ export interface OAuthState {
   path: string
 }
 
-export interface RoutePrams {
+export interface RouteParams {
   Querystring: {
     code?: string
     state?: string
@@ -31,8 +31,4 @@ export interface GitHubOrgMembership {
 
 export interface GitHubUser {
   login: string
-}
-
-export interface StaticFallbacks {
-  [url: string]: string
 }

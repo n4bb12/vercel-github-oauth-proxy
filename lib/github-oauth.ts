@@ -8,7 +8,7 @@ import type {
   GitHubOrgMembership,
   GitHubUser,
   OAuthState,
-  RoutePrams,
+  RouteParams,
 } from "./types"
 
 export function registerGitHubOAuth(server: FastifyInstance, config: Config) {
@@ -29,7 +29,7 @@ export function registerGitHubOAuth(server: FastifyInstance, config: Config) {
     user: "user",
   } as const
 
-  const formatQueryParams = (params: Record<string, any>) => {
+  const formatQueryParams = (params: Record<string, string>) => {
     return "?" + new URLSearchParams(params).toString()
   }
 
@@ -66,13 +66,13 @@ export function registerGitHubOAuth(server: FastifyInstance, config: Config) {
   // https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/authorizing-oauth-apps#web-application-flow
   //
   const redirectToGitHub = async (
-    req: FastifyRequest<RoutePrams>,
+    req: FastifyRequest<RouteParams>,
     res: FastifyReply,
   ) => {
     const query = formatQueryParams({
       client_id: config.githubClientId,
       scope: "read:user",
-      state: req.cookies[cookieNames.state],
+      state: req.cookies[cookieNames.state] ?? "",
     })
     res.redirect(urls.githubAuthorize + query, 302)
   }
@@ -144,7 +144,7 @@ export function registerGitHubOAuth(server: FastifyInstance, config: Config) {
   }
 
   const retrieveState = (
-    req: FastifyRequest<RoutePrams>,
+    req: FastifyRequest<RouteParams>,
     res: FastifyReply,
   ) => {
     const state: OAuthState = unsignCookie(res, req.query.state || "")
@@ -180,7 +180,7 @@ export function registerGitHubOAuth(server: FastifyInstance, config: Config) {
   //
   // https://fastify.dev/docs/latest/Reference/Hooks
   //
-  server.addHook<RoutePrams>("preValidation", async (req, res) => {
+  server.addHook<RouteParams>("preValidation", async (req, res) => {
     try {
       if (req.url === urls.localMembershipError) {
         return denyAccess(

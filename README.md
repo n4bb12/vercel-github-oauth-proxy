@@ -11,7 +11,7 @@
     <img alt="Version" src="https://img.shields.io/npm/v/vercel-github-oauth-proxy?style=flat-square&logo=npm">
   </a>
 
-  <a href="https://raw.githubusercontent.com/n4bb12/vercel-github-oauth-proxy/master/LICENSE">
+  <a href="https://raw.githubusercontent.com/n4bb12/vercel-github-oauth-proxy/main/LICENSE">
     <img alt="License" src="https://img.shields.io/badge/license-ISC-blue?style=flat-square&logo=github">
   </a>
   
@@ -25,7 +25,7 @@
 ### Step 1 — Add the library
 
 ```
-yarn add vercel-github-oauth-proxy
+bun add vercel-github-oauth-proxy
 ```
 
 ### Step 2 — Create an API endpoint at `/api/index.ts`
@@ -43,6 +43,11 @@ This is used to sign cookies.
 `config.staticDir`
 
 The output directory of the static website.
+
+`config.sessionDurationSeconds`
+
+The duration of the session in seconds. After this time, the user will need to
+re-authenticate.
 
 `config.githubOrgName`
 
@@ -119,7 +124,7 @@ may break deployment entirely. For more information see
 To develop locally, run
 
 ```
-yarn vercel dev
+bunx vercel dev
 ```
 
 When developing locally, you'll need to update your GitHub OAuth app's redirect

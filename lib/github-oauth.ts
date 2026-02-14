@@ -1,7 +1,7 @@
 import { URLSearchParams } from "node:url"
+import { randomUUID } from "node:crypto"
 import axios, { AxiosError } from "axios"
 import type { FastifyInstance, FastifyReply, FastifyRequest } from "fastify"
-import { nanoid } from "nanoid"
 import type {
   Config,
   GitHubAccessToken,
@@ -46,7 +46,7 @@ export function registerGitHubOAuth(server: FastifyInstance, config: Config) {
    */
   const initiateOAuth = async (req: FastifyRequest, res: FastifyReply) => {
     const state: OAuthState = {
-      randomToken: nanoid(),
+      randomToken: randomUUID(),
       path: req.url,
     }
 

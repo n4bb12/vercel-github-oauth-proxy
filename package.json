@@ -33,7 +33,6 @@
     "@fastify/static": "^9.0.0",
     "axios": "^1.13.5",
     "fastify": "^5.7.4",
-    "nanoid": "^5.1.6",
     "zod": "^4.3.6"
   },
   "devDependencies": {

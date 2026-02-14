@@ -1,9 +1,8 @@
+import { URLSearchParams } from "node:url"
 import axios, { AxiosError } from "axios"
-import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify"
+import type { FastifyInstance, FastifyReply, FastifyRequest } from "fastify"
 import { nanoid } from "nanoid"
-import { URLSearchParams } from "url"
-
-import {
+import type {
   Config,
   GitHubAccessToken,
   GitHubOrgMembership,
@@ -60,7 +59,7 @@ export function registerGitHubOAuth(server: FastifyInstance, config: Config) {
       secure: secureCookies,
       signed: true,
     })
-    res.redirect(302, urls.localAuthorize)
+    res.redirect(urls.localAuthorize, 302)
   }
 
   //
@@ -75,7 +74,7 @@ export function registerGitHubOAuth(server: FastifyInstance, config: Config) {
       scope: "read:user",
       state: req.cookies[cookieNames.state],
     })
-    res.redirect(302, urls.githubAuthorize + query)
+    res.redirect(urls.githubAuthorize + query, 302)
   }
 
   const denyAccess = async (res: FastifyReply, message?: string) => {
@@ -101,7 +100,9 @@ export function registerGitHubOAuth(server: FastifyInstance, config: Config) {
       code,
     }
 
-    const { data } = await axios.post<GitHubAccessToken>(url, body, { headers })
+    const { data } = await axios.post<GitHubAccessToken>(url, body, {
+      headers,
+    })
 
     return data
   }
@@ -173,7 +174,7 @@ export function registerGitHubOAuth(server: FastifyInstance, config: Config) {
       secure: secureCookies,
       signed: false,
     })
-    res.redirect(302, path)
+    res.redirect(path, 302)
   }
 
   //
@@ -202,7 +203,7 @@ export function registerGitHubOAuth(server: FastifyInstance, config: Config) {
       if (req.cookies[cookieNames.state] && req.cookies[cookieNames.user]) {
         if (req.query.state || req.query.code) {
           const state = retrieveState(req, res)
-          return res.redirect(302, state.path)
+          return res.redirect(state.path, 302)
         }
         return
       }
@@ -230,7 +231,7 @@ export function registerGitHubOAuth(server: FastifyInstance, config: Config) {
       } while (!isUserMember && members.length)
 
       if (!members.find((member) => member.login === user.login)) {
-        return res.redirect(302, urls.localMembershipError)
+        return res.redirect(urls.localMembershipError, 302)
       }
 
       return succeed(res, user, state.path)
@@ -240,7 +241,7 @@ export function registerGitHubOAuth(server: FastifyInstance, config: Config) {
       } else if (error instanceof Error) {
         console.error(error.stack)
       }
-      return res.redirect(302, urls.localGenericError)
+      return res.redirect(urls.localGenericError, 302)
     }
   })
 }
